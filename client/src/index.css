@@ -1,49 +1,282 @@
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @layer base {
-  body {
-    background-color: #f8fafc;
-    color: #0f172a;
+  :root {
+    --drivea-bg: #f4f1eb;
+    --drivea-surface: #fbfaf7;
+    --drivea-card: #ffffff;
+    --drivea-ink: #171717;
+    --drivea-muted: #77736c;
+    --drivea-line: #e5e1d9;
+    --drivea-accent: #f15a29;
+    --drivea-accent-dark: #d94b20;
+    --drivea-dark: #171717;
+    --drivea-dark-soft: #202020;
   }
 
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  * {
+    box-sizing: border-box;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--drivea-bg);
+    color: var(--drivea-ink);
+    font-family: "DM Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    background: rgba(241, 90, 41, 0.18);
+    color: #171717;
+  }
+
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+
   ::-webkit-scrollbar-track {
     background: transparent;
   }
+
   ::-webkit-scrollbar-thumb {
-    background: rgba(148, 163, 184, 0.4);
-    border-radius: 9999px;
+    background: #c9c4ba;
+    border-radius: 999px;
   }
+
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(100, 116, 139, 0.6);
-  }
-
-  /* Global No Shadows Rule */
-  *, ::before, ::after {
-    box-shadow: none !important;
-    font-family: 'Urbanist', sans-serif;
+    background: #aaa49a;
   }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
+/* ---------------------------------------------------------
+   Typography
+--------------------------------------------------------- */
+
+.drivea-display {
+  font-family: "Manrope", sans-serif;
+  letter-spacing: -0.045em;
 }
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+.drivea-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.15s ease-out forwards;
+/* ---------------------------------------------------------
+   Workspace
+--------------------------------------------------------- */
+
+.drivea-workspace {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at 80% 0%,
+      rgba(241, 90, 41, 0.055),
+      transparent 30%
+    ),
+    var(--drivea-bg);
 }
 
-.animate-slide-up {
-  animation: slideUp 0.18s ease-out forwards;
+.drivea-workspace::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.32;
+  background-image:
+    linear-gradient(rgba(23, 23, 23, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 23, 23, 0.025) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, black, transparent 80%);
+}
+
+.drivea-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------------------------------------------------------
+   Premium surfaces
+--------------------------------------------------------- */
+
+.drivea-panel {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--drivea-line);
+  border-radius: 18px;
+}
+
+.drivea-panel-solid {
+  background: var(--drivea-card);
+  border: 1px solid var(--drivea-line);
+  border-radius: 18px;
+}
+
+.drivea-divider {
+  border-color: var(--drivea-line);
+}
+
+/* ---------------------------------------------------------
+   Sidebar
+--------------------------------------------------------- */
+
+.drivea-sidebar {
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(241, 90, 41, 0.11),
+      transparent 28%
+    ),
+    var(--drivea-dark);
+  color: #fff;
+}
+
+.drivea-sidebar-line {
+  border-color: rgba(255, 255, 255, 0.09);
+}
+
+.drivea-nav-active {
+  background: rgba(255, 255, 255, 0.085);
+  color: #fff;
+}
+
+.drivea-nav-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  bottom: 9px;
+  width: 3px;
+  border-radius: 0 4px 4px 0;
+  background: var(--drivea-accent);
+}
+
+.drivea-nav-item {
+  position: relative;
+}
+
+/* ---------------------------------------------------------
+   Cards
+--------------------------------------------------------- */
+
+.drivea-file-card {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid #e4e0d8;
+  border-radius: 16px;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.drivea-file-card:hover {
+  transform: translateY(-2px);
+  background: #fff;
+  border-color: #d6d0c5;
+}
+
+.drivea-folder-card {
+  background: #eeebe4;
+  border: 1px solid #ded9cf;
+  border-radius: 14px;
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.drivea-folder-card:hover {
+  transform: translateY(-2px);
+  background: #e8e4dc;
+  border-color: #d1cbc0;
+}
+
+/* ---------------------------------------------------------
+   Buttons
+--------------------------------------------------------- */
+
+.drivea-primary {
+  background: var(--drivea-accent);
+  color: white;
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.drivea-primary:hover {
+  background: var(--drivea-accent-dark);
+}
+
+.drivea-primary:active {
+  transform: translateY(1px);
+}
+
+/* ---------------------------------------------------------
+   Animations
+--------------------------------------------------------- */
+
+@keyframes driveaFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes driveaFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-drivea-up {
+  animation: driveaFadeUp 0.35s ease-out both;
+}
+
+.animate-drivea-fade {
+  animation: driveaFade 0.25s ease-out both;
+}
+
+.stagger-1 {
+  animation-delay: 40ms;
+}
+
+.stagger-2 {
+  animation-delay: 80ms;
+}
+
+.stagger-3 {
+  animation-delay: 120ms;
+}
+
+.stagger-4 {
+  animation-delay: 160ms;
 }
